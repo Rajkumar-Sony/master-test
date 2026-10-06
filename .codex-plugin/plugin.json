@@ -1,0 +1,21 @@
+{
+  "interface": {
+    "displayName": "Master Test",
+    "shortDescription": "QA before completion",
+    "longDescription": "Provides a universal software testing and quality assurance workflow for validating functionality, security, reliability, performance, maintainability, and production readiness before marking work complete.",
+    "developerName": "RajkumarSony",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Skills"
+    ],
+    "defaultPrompt": "Apply Master Test to validate this project or change before completion."
+  },
+  "name": "master-test",
+  "version": "0.1.1",
+  "description": "A reusable Codex skill for comprehensive software testing, QA validation, and production readiness reporting.",
+  "author": {
+    "name": "RajkumarSony"
+  },
+  "keywords": [],
+  "skills": "./skills"
+}
