@@ -12,5 +12,5 @@ A Codex plugin containing the `master-test` skill for comprehensive software tes
 
 - Display name: Master Test
 - Package name: `master-test`
-- Version: `0.1.1`
+- Version: `0.1.2`
 - Author: RajkumarSony

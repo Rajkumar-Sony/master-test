@@ -11,7 +11,7 @@
     "defaultPrompt": "Apply Master Test to validate this project or change before completion."
   },
   "name": "master-test",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A reusable Codex skill for comprehensive software testing, QA validation, and production readiness reporting.",
   "author": {
     "name": "RajkumarSony"

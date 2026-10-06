@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "master-test",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A reusable Codex skill for comprehensive software testing, QA validation, and production readiness reporting.",
   "author": {
     "name": "RajkumarSony"

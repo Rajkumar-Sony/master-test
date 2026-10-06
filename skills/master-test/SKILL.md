@@ -3,269 +3,1660 @@ name: master-test
 description: Use for comprehensive software testing and QA validation before considering a software change, release, bug fix, refactor, migration, API change, UI change, dependency update, or deployment complete.
 ---
 
-# Master Test
+# UNIVERSAL SOFTWARE TESTING AND QUALITY ASSURANCE PROMPT
 
-Apply this skill when validating software quality, correctness, reliability, security, performance, maintainability, and production readiness. It is universal: adapt it to the current project regardless of language, framework, architecture, database, deployment platform, or project size.
+You are responsible for validating the quality, correctness, reliability, security, performance, maintainability, and production readiness of the current software project.
 
-Do not assume code is correct because it compiles, builds, looks right, passes one happy path, was AI-generated, has existing passing tests, or was claimed to work. Verify actual behavior.
+This prompt must be applied to ANY project regardless of programming language, framework, architecture, database, deployment platform, or project size.
 
-## Primary Objective
+Do not assume code is correct just because:
+- It compiles.
+- It builds successfully.
+- The UI looks correct.
+- One happy-path scenario works.
+- AI generated the code.
+- Existing tests pass.
+- The developer says the feature works.
+
+You must verify actual behavior.
+
+==================================================
+PRIMARY OBJECTIVE
+==================================================
 
 Before considering any feature, bug fix, refactor, migration, API change, database change, configuration change, infrastructure change, frontend change, backend change, or dependency update complete, perform all relevant testing and quality checks.
 
-Look for functional bugs, logic errors, regressions, integration failures, security and authorization problems, data corruption risks, race conditions, performance problems, resource leaks, invalid assumptions, broken edge cases, incorrect API behavior, UI/UX failures, accessibility problems, deployment issues, configuration problems, dependency vulnerabilities, compatibility problems, and production readiness risks.
+The goal is to detect:
+
+- Functional bugs
+- Logic errors
+- Regression issues
+- Integration failures
+- Security vulnerabilities
+- Authorization problems
+- Data corruption risks
+- Race conditions
+- Performance problems
+- Resource leaks
+- Invalid assumptions
+- Broken edge cases
+- Incorrect API behavior
+- UI/UX failures
+- Accessibility problems
+- Deployment issues
+- Configuration problems
+- Dependency vulnerabilities
+- Compatibility problems
+- Production readiness risks
 
 Never mark a task complete without testing it.
 
-## Non-Negotiable Rules
+==================================================
+NON-NEGOTIABLE RULES
+==================================================
 
-- Never trust AI-generated code without verification.
-- Never remove, disable, skip, weaken, or modify a valid test only to make the build pass.
-- Never ignore a failing test, warning, security issue, or failing check.
-- Never hardcode values only to satisfy tests.
-- Never change correct production behavior only to make an incorrect test pass.
-- Never claim something was tested if it was not actually tested.
-- Never claim perfect security, correctness, reliability, or coverage unless objectively proven.
-- Never invent test results.
-- Never silently ignore an area that could not be tested.
-- Always report untested areas and remaining risks.
-- Preserve existing working behavior unless the requirement explicitly changes it.
-- Check the Git diff before completion.
-- Do not introduce unrelated changes.
-- Do not expose credentials, secrets, tokens, private keys, personal data, or sensitive configuration in source code, logs, test output, screenshots, documentation, or commits.
+1. Never trust AI-generated code without verification.
 
-## Understand the Project First
+2. Never remove, disable, skip, weaken, or modify a valid test only to make the build pass.
 
-Before testing, identify the project shape:
+3. Never ignore a failing test.
 
-- Programming languages, frameworks, frontend and backend technology.
-- Databases, caches, queues, file storage, background jobs, webhooks, event-driven components, microservices, cloud services, and external APIs.
-- Authentication and authorization model.
-- Third-party dependencies.
-- Deployment environment, build system, existing CI/CD pipeline.
-- Existing test framework, linting/static-analysis tools, and security tools.
+4. Never hide errors, warnings, security issues, or failing checks.
 
-Use the most appropriate testing tools already available in the repository whenever possible. Do not force incompatible tools.
+5. Never hardcode values only to satisfy tests.
 
-## Required Execution Flow
+6. Never change correct production behavior only to make an incorrect test pass.
 
-Use this flow where applicable, adapting to project scope and risk:
+7. Never claim something was tested if it was not actually tested.
 
-1. Requirements review.
-2. Code review.
-3. Compile/build.
-4. Lint/static analysis/format verification.
-5. Unit tests.
-6. Integration tests.
-7. Database tests.
-8. API tests.
-9. Authentication and authorization tests.
-10. Security tests.
-11. Regression tests.
-12. Frontend/component tests.
-13. End-to-end tests.
-14. Performance and concurrency tests.
-15. Manual exploratory testing.
-16. Git diff review.
-17. Deployment verification, when deployment is in scope.
-18. Smoke testing after deployment, when deployment is in scope.
-19. Final validation report.
+8. Never claim 100% security, correctness, reliability, or coverage unless objectively proven.
 
-Do not blindly run irrelevant tests. Determine which categories apply to the current project and explain why.
+9. Never invent test results.
 
-## Build, Compile, Lint, and Static Checks
+10. Never silently ignore an area that could not be tested.
 
-Run applicable project checks, such as compilation, build, type checking, linting, formatting verification, static code analysis, dependency validation, and configuration validation.
+11. Always report untested areas and remaining risks.
 
-Verify there are no compilation errors, type errors, unresolved imports, missing dependencies, broken configuration, unexpected warnings, dead code introduced, or unnecessary duplicate code. Inspect warnings instead of ignoring them.
+12. Preserve existing working behavior unless the requirement explicitly changes it.
 
-## Unit Testing
+13. Check the Git diff before completion.
 
-Write and run focused tests for isolated business logic, services, utility classes, validators, calculations, parsers, formatters, converters, mappers, domain logic, error handling, boundary conditions, and state transitions.
+14. Do not introduce unrelated changes.
 
-Cover relevant normal, empty, null, minimum, maximum, invalid, duplicate, unexpected, and boundary inputs. Unit tests must be deterministic, independent, repeatable, fast, readable, and focused. Do not over-mock important behavior.
+15. Do not expose credentials, secrets, tokens, private keys, personal data, or sensitive configuration in:
+- source code
+- logs
+- test output
+- screenshots
+- documentation
+- commits
 
-## Integration Testing
+==================================================
+STEP 1: UNDERSTAND THE PROJECT FIRST
+==================================================
 
-Test how components work together, such as frontend to API to backend to database, controller to service to repository, services to queues and workers, application to external API, cache, database, or object storage.
+Before testing, analyze the project and identify:
 
-Verify data flow, transactions, configuration, serialization/deserialization, error propagation, dependency interaction, and real database behavior. When practical, use the same database engine used in production rather than only simplified in-memory substitutes.
+- Programming languages
+- Frameworks
+- Frontend technology
+- Backend technology
+- Databases
+- Caches
+- Queues
+- External APIs
+- Authentication mechanism
+- Authorization model
+- File storage
+- Cloud services
+- Background jobs
+- Webhooks
+- Event-driven components
+- Microservices
+- Third-party dependencies
+- Deployment environment
+- Build system
+- Existing test framework
+- Existing CI/CD pipeline
+- Existing linting/static-analysis tools
+- Existing security tools
 
-## API and Contract Testing
+Do not force tools that are incompatible with the current project.
 
-Test every relevant API endpoint and method, including success and failure paths. Verify status codes, validation, response structure/schema, required and optional fields, null and empty values, wrong types, invalid IDs, nonexistent resources, duplicate requests, pagination, filtering, sorting, search, headers, content types, and error responses.
+Use the most appropriate testing tools already available in the repository whenever possible.
 
-When multiple services or clients depend on an API, verify request and response schema compatibility, required and optional field compatibility, enum compatibility, version compatibility, and backward compatibility.
+==================================================
+STEP 2: BUILD, COMPILE, LINT, AND STATIC CHECKS
+==================================================
 
-## End-to-End, Regression, Smoke, and Sanity Testing
+Run all applicable project checks.
 
-Test complete real user workflows across important system layers. Do not rely only on mocked backend responses for critical flows.
+Examples include:
 
-For every reproducible bug:
+- Compilation
+- Build
+- Type checking
+- Linting
+- Formatting verification
+- Static code analysis
+- Dependency validation
+- Configuration validation
+
+Verify:
+
+- No compilation errors
+- No type errors
+- No unresolved imports
+- No missing dependencies
+- No broken configuration
+- No unexpected warnings
+- No dead code introduced
+- No duplicate code unnecessarily introduced
+
+If warnings exist, inspect them instead of ignoring them.
+
+==================================================
+STEP 3: UNIT TESTING
+==================================================
+
+Write and run unit tests for isolated logic.
+
+Unit testing must cover relevant:
+
+- Business logic
+- Services
+- Utility classes
+- Validators
+- Calculations
+- Parsers
+- Formatters
+- Converters
+- Mappers
+- Domain logic
+- Error handling
+- Boundary conditions
+- State transitions
+
+Test:
+
+- Normal input
+- Empty input
+- Null input where applicable
+- Minimum values
+- Maximum values
+- Invalid input
+- Duplicate input
+- Unexpected input
+- Boundary values
+
+Unit tests must be:
+
+- Deterministic
+- Independent
+- Repeatable
+- Fast
+- Readable
+- Focused
+
+Do not over-mock important behavior.
+
+==================================================
+STEP 4: INTEGRATION TESTING
+==================================================
+
+Test how components work together.
+
+Examples:
+
+Frontend
+→ API
+→ Backend
+→ Database
+
+Controller
+→ Service
+→ Repository
+→ Database
+
+Service A
+→ Message Queue
+→ Worker
+→ Database
+
+Application
+→ External API
+
+Application
+→ Cache
+→ Database
+
+Application
+→ Object Storage
+
+Verify:
+
+- Data flows correctly
+- Transactions behave correctly
+- Configuration works
+- Serialization/deserialization works
+- Error propagation works
+- Dependencies interact correctly
+- Real database behavior matches expectations
+
+When practical, use the same database engine used in production instead of relying only on simplified in-memory substitutes.
+
+==================================================
+STEP 5: API TESTING
+==================================================
+
+Test every relevant API endpoint.
+
+Test HTTP methods such as:
+
+- GET
+- POST
+- PUT
+- PATCH
+- DELETE
+
+Verify appropriate status codes including:
+
+- 200
+- 201
+- 202
+- 204
+- 400
+- 401
+- 403
+- 404
+- 405
+- 409
+- 415
+- 422
+- 429
+- 500
+- 502
+- 503
+- 504
+
+where relevant.
+
+Verify:
+
+- Request validation
+- Response structure
+- Response schema
+- Required fields
+- Optional fields
+- Null values
+- Empty values
+- Wrong types
+- Invalid IDs
+- Nonexistent resources
+- Duplicate requests
+- Pagination
+- Filtering
+- Sorting
+- Search
+- Headers
+- Content types
+- Error responses
+
+Do not only test successful responses.
+
+==================================================
+STEP 6: CONTRACT TESTING
+==================================================
+
+When multiple services or clients depend on an API, test contracts.
+
+Verify:
+
+- Request schema compatibility
+- Response schema compatibility
+- Required field compatibility
+- Optional field compatibility
+- Enum compatibility
+- Version compatibility
+- Backward compatibility
+
+Prevent one service from silently breaking another service.
+
+==================================================
+STEP 7: END-TO-END TESTING
+==================================================
+
+Test complete real user workflows.
+
+Examples:
+
+Register
+→ Verify account
+→ Login
+→ Perform action
+→ Logout
+
+Login
+→ Search
+→ Open item
+→ Update item
+→ Save
+→ Verify persisted data
+
+Upload
+→ Process
+→ Store
+→ Download
+
+Payment
+→ Confirmation
+→ Database update
+→ Notification
+
+E2E tests should validate actual user behavior across all important system layers.
+
+Use appropriate tools such as:
+
+- Playwright
+- Cypress
+- Selenium
+- Appium
+- project-specific equivalents
+
+Do not rely only on mocked backend responses for critical E2E flows.
+
+==================================================
+STEP 8: REGRESSION TESTING
+==================================================
+
+Every new change must be checked against existing functionality.
+
+Whenever a bug is found:
 
 1. Reproduce the bug.
-2. Understand the root cause.
-3. Create a failing regression test.
-4. Fix the root cause.
-5. Run the test.
-6. Run the related suite.
-7. Verify no regression.
-8. Keep the regression test permanently.
+2. Write a failing regression test.
+3. Fix the bug.
+4. Verify the test passes.
+5. Keep the regression test permanently.
 
-After builds, deployments, major configuration changes, database migrations, or infrastructure updates, smoke-test critical functionality such as startup, login, main page, health endpoint, database connection, core API, and important external integrations. After focused changes, sanity-check the changed feature and closely related features.
+Do not allow the same bug to silently return later.
 
-## Negative and Edge-Case Testing
+Run existing relevant tests after every meaningful change.
 
-Deliberately test invalid behavior. Relevant examples include invalid requests, invalid JSON, missing fields, wrong types, invalid IDs, unsupported operations, invalid or malformed tokens, missing permissions, invalid files, oversized files, duplicate submissions, and unsupported content types.
+==================================================
+STEP 9: SMOKE TESTING
+==================================================
 
-Test relevant edge cases such as null, empty string, whitespace, zero, negative numbers, very large numbers, extremely long text, Unicode, emoji, special characters, duplicates, missing references, expired data, timezone boundaries, daylight-saving transitions, leap years, empty or huge collections, unusual filenames, and duplicate filenames.
+Perform a fast health check after:
+
+- Build
+- Deployment
+- Major configuration change
+- Database migration
+- Infrastructure update
+
+Verify critical functionality such as:
+
+- Application starts
+- Login works
+- Main page loads
+- Health endpoint works
+- Database connection works
+- Core API responds
+- Important external integrations are reachable
+
+==================================================
+STEP 10: SANITY TESTING
+==================================================
+
+After a focused change or bug fix, verify:
+
+- The changed feature works.
+- Closely related features still work.
+- No obvious side effects were introduced.
+
+==================================================
+STEP 11: NEGATIVE TESTING
+==================================================
+
+Deliberately test invalid behavior.
+
+Examples:
+
+- Invalid request
+- Invalid JSON
+- Missing fields
+- Wrong field types
+- Invalid ID
+- Unsupported operation
+- Invalid token
+- Malformed token
+- Missing permissions
+- Invalid file
+- Oversized file
+- Duplicate submission
+- Unsupported content type
 
 The system must fail safely and predictably.
 
-## Authentication and Authorization Testing
+==================================================
+STEP 12: EDGE-CASE TESTING
+==================================================
 
-Test authentication thoroughly, including valid login, invalid credentials, logout, session expiration, token expiration, token refresh, revoked token, invalid token, missing token, reused token, password reset, account lockout, and MFA when applicable.
+Test important edge cases.
 
-Authentication does not prove authorization. Test role-based access, permission-based access, resource ownership, tenant isolation, organization isolation, admin restrictions, user restrictions, horizontal privilege escalation, and vertical privilege escalation. User A must not access, modify, or delete User B's resources unless explicitly authorized.
+Examples:
 
-## Security Testing
+- null
+- empty string
+- whitespace
+- zero
+- negative number
+- very large number
+- extremely long text
+- Unicode
+- emoji
+- special characters
+- duplicate records
+- missing references
+- expired data
+- timezone boundaries
+- daylight-saving transitions
+- leap years
+- empty collections
+- huge collections
+- unusual file names
+- duplicate filenames
 
-Perform security testing appropriate to the application and follow OWASP guidance where applicable. Check for injection issues, XSS, CSRF, SSRF, XXE, path traversal, directory traversal, IDOR, broken access control, authentication bypass, session fixation, insecure deserialization, open redirect, header injection, host-header attacks, CORS misconfiguration, clickjacking, unsafe uploads, unrestricted file access, information disclosure, debug endpoints, sensitive error messages, weak cryptography, hardcoded secrets, exposed credentials, insecure cookies, missing security headers, missing rate limiting, excessive API permissions, dependency vulnerabilities, and supply-chain risks.
+Only apply relevant cases to the project.
 
-For security-sensitive, internet-facing, production, enterprise, financial, healthcare, authentication-heavy, or sensitive-data applications, perform authorized penetration testing before production release. Never perform destructive testing against production unless explicitly authorized and safely planned.
+==================================================
+STEP 13: AUTHENTICATION TESTING
+==================================================
 
-## Data, Migration, Concurrency, and Idempotency Testing
+Test authentication thoroughly.
 
-When data persistence exists, test CRUD operations, constraints, transactions, rollbacks, isolation levels, locking, concurrent updates, pagination, sorting, filtering, search, index usage, query performance, migrations, rollback migrations, seed data, and referential integrity.
+Verify:
 
-Check for N+1 queries, full-table scans, missing indexes, duplicate queries, excessive queries, Cartesian joins, incorrect fetch strategies, slow joins, and unbounded queries.
+- Valid login
+- Invalid credentials
+- Logout
+- Session expiration
+- Token expiration
+- Token refresh
+- Revoked token
+- Invalid token
+- Missing token
+- Reused token
+- Password reset
+- Account lockout if applicable
+- MFA if applicable
 
-For schema or data migrations, verify clean-database success, existing-database success, data preservation, constraint validity, application compatibility, and rollback strategy where practical.
+Ensure secure session handling.
 
-Test simultaneous activity, repeated requests, duplicate event processing, multi-tab edits, double clicks, and worker concurrency. Detect race conditions, lost updates, duplicates, deadlocks, incorrect locking, corruption, and inconsistent state.
+==================================================
+STEP 14: AUTHORIZATION TESTING
+==================================================
 
-For retryable or repeatable operations, verify duplicate execution does not unintentionally create duplicates, charge twice, send multiple notifications, corrupt state, or process the same event twice.
+Authentication does NOT automatically mean authorization is correct.
 
-## Failure, Retry, and Resilience Testing
+Test:
 
-Intentionally force relevant failures such as database, cache, queue, third-party API, DNS, timeout, connection reset, invalid response, partial response, malformed response, rate limit, disk full, storage unavailable, and file corruption.
+- Role-based access
+- Permission-based access
+- Resource ownership
+- Tenant isolation
+- Organization isolation
+- Admin restrictions
+- User restrictions
 
-Verify the application avoids unnecessary crashes, handles errors gracefully, returns useful error responses, does not expose sensitive information, retries only retriable failures safely, and does not endlessly retry non-retriable failures.
+Critical example:
 
-Where retries, circuit breakers, timeouts, fallback logic, or bulkheads exist, verify retry count, backoff behavior, exception rules, circuit breaker opening/recovery, timeout behavior, and fallback behavior. Prevent retry storms.
+User A must not be able to access, modify, or delete User B's resources unless explicitly authorized.
 
-## Performance, Load, Stress, Soak, and Resource Testing
+Test horizontal and vertical privilege escalation.
 
-Measure important performance characteristics using realistic workloads: response time, throughput, CPU, memory, database latency, cache behavior, file processing speed, queue processing speed, and large dataset behavior.
+==================================================
+STEP 15: SECURITY TESTING
+==================================================
 
-Use suitable tools such as k6, JMeter, Gatling, Locust, or project-specific equivalents where appropriate. Test normal and peak traffic, then stress beyond expected load when useful. For long-running systems, run soak/endurance checks to detect memory, connection, thread, file descriptor, temporary file, cache, disk, and other resource leaks.
+Perform security testing appropriate to the application.
 
-Do not optimize blindly. Identify actual bottlenecks.
+Check for:
 
-## Frontend, Responsive, Browser, Accessibility, and Localization Testing
+- SQL injection
+- NoSQL injection
+- Command injection
+- Code injection
+- XSS
+- CSRF
+- SSRF
+- XXE
+- Path traversal
+- Directory traversal
+- IDOR
+- Broken access control
+- Authentication bypass
+- Session fixation
+- Insecure deserialization
+- Open redirect
+- Header injection
+- Host-header attacks
+- CORS misconfiguration
+- Clickjacking
+- Unsafe file uploads
+- Unrestricted file access
+- Information disclosure
+- Debug endpoints
+- Sensitive error messages
+- Weak cryptography
+- Hardcoded secrets
+- Exposed credentials
+- Insecure cookies
+- Missing security headers
+- Missing rate limiting
+- Excessive API permissions
+- Dependency vulnerabilities
+- Supply-chain risks
 
-For frontend work, test rendering, loading, success, empty, error, and disabled states; form validation; buttons; navigation; routing; search; filtering; pagination; sorting; modals; dialogs; dropdowns; forms; keyboard interaction; and API failure behavior. The UI must not silently fail.
+Follow OWASP guidance where applicable.
 
-Where applicable, test desktop, laptop, tablet, mobile, portrait, landscape, and supported browsers such as Chrome, Edge, Firefox, and Safari.
+==================================================
+STEP 16: PENETRATION TESTING
+==================================================
 
-Check accessibility requirements: keyboard navigation, focus order, visible focus, labels, ARIA usage, semantic HTML, screen-reader compatibility, form errors, color contrast, alternative text, accessible buttons, and accessible dialogs. Aim for applicable WCAG requirements.
+For security-sensitive, internet-facing, production, enterprise, financial, healthcare, authentication-heavy, or sensitive-data applications, perform penetration testing before production release.
 
-When localization or internationalization matters, test multiple languages, Unicode, long translated text, right-to-left languages, date formats, number formats, currency formats, timezones, and character encoding.
+Penetration testing should verify realistic attack paths including:
 
-Where time matters, test UTC, local timezone, timezone conversion, DST, date/month/year boundaries, leap years, expiration times, and scheduled tasks.
+- Authentication bypass
+- Authorization bypass
+- Privilege escalation
+- IDOR
+- Injection
+- Session abuse
+- Token abuse
+- File upload abuse
+- API abuse
+- Data exposure
+- Rate-limit bypass
+- Misconfiguration
+- Business-logic abuse
 
-## Caches, Queues, Webhooks, External APIs, and Files
+Penetration testing must be authorized and performed only against systems where testing permission exists.
 
-When caching exists, test hits, misses, expiration, invalidation, stale cache behavior, cache outage behavior, concurrent updates, and cache/database consistency.
+Do not perform destructive testing against production unless explicitly authorized and safely planned.
 
-When using queues or event systems, test publishing, consumption, duplicate events, out-of-order events, failed consumers, consumer retry, dead-letter queues, poison messages, queue unavailability, reconnection, and at-least-once delivery behavior. Verify idempotency.
+==================================================
+STEP 17: DATABASE TESTING
+==================================================
 
-When using webhooks, test valid signatures, invalid signatures, missing signatures, duplicate webhook, delayed webhook, out-of-order webhook, retry, replay attack, invalid payload, and unknown event type.
+Test:
 
-When using external APIs, test success, authentication failure, authorization failure, timeout, rate limiting, invalid response, partial response, schema changes, service unavailable, and network interruption.
+- CRUD operations
+- Constraints
+- Foreign keys
+- Unique constraints
+- Null constraints
+- Transactions
+- Rollbacks
+- Isolation levels where relevant
+- Locking
+- Concurrent updates
+- Pagination
+- Sorting
+- Filtering
+- Search
+- Index usage
+- Query performance
+- Data migrations
+- Schema migrations
+- Rollback migrations
+- Seed data
+- Referential integrity
 
-For uploads/downloads, test valid files, invalid extensions, incorrect MIME type, empty files, large files, corrupted files, duplicate filenames, Unicode filenames, special characters, interrupted transfers, unauthorized downloads, and path traversal attempts.
+Check for:
 
-## Logging, Observability, Configuration, Dependencies, Containers, and Infrastructure
+- N+1 queries
+- Full-table scans
+- Missing indexes
+- Duplicate queries
+- Excessive queries
+- Cartesian joins
+- Incorrect fetch strategies
+- Slow joins
+- Unbounded queries
 
-Verify logs contain enough debugging information without exposing passwords, access tokens, refresh tokens, API secrets, private keys, full credit card details, or sensitive personal data. Use appropriate log levels.
+==================================================
+STEP 18: MIGRATION TESTING
+==================================================
 
-Where observability exists, verify logs, metrics, traces, health checks, readiness checks, liveness checks, and alerting.
+For schema or data migrations verify:
 
-Verify configuration across local, development, testing, staging, and production as relevant. Check required environment variables, defaults, missing or invalid variables, secret handling, feature flags, URLs, ports, database configuration, and CORS configuration.
+- Migration succeeds on clean database.
+- Migration succeeds on existing database.
+- Existing data remains valid.
+- No data is unintentionally deleted.
+- Constraints remain valid.
+- Application remains compatible.
+- Rollback strategy exists where practical.
 
-Check vulnerable, outdated, conflicting, unused, unsupported, or license-problematic dependencies. Do not upgrade dependencies blindly. After dependency updates, run regression testing.
+==================================================
+STEP 19: CONCURRENCY TESTING
+==================================================
 
-Where tools are available, run SAST, secret scanning, dependency scanning, vulnerability scanning, and similar static security analysis.
+Test simultaneous activity.
 
-When Docker or containers are used, verify image build, startup, required files, no baked secrets, correct exposed ports, health checks, non-root runtime where practical, base image vulnerabilities, and reasonable image size.
+Examples:
 
-When infrastructure is part of the project, verify environment configuration, networking, firewall/security groups, IAM permissions, storage, database connectivity, DNS, SSL/TLS, load balancer, health checks, secrets, backup configuration, and least privilege.
+- Two users modify the same item.
+- Duplicate API requests arrive simultaneously.
+- Two workers process the same event.
+- Multiple browser tabs modify the same data.
+- User double-clicks an action.
+- Two background jobs run simultaneously.
 
-## Deployment, Rollback, Backup, and Disaster Recovery
+Detect:
 
-Before deployment, run the full build, relevant automated tests, configuration validation, migration validation, secrets checks, and deployment script checks.
+- Race conditions
+- Lost updates
+- Duplicate records
+- Deadlocks
+- Incorrect locking
+- Data corruption
+- Inconsistent state
 
-After deployment, run smoke tests, check health, logs, and metrics, and test important endpoints and critical user flows.
+==================================================
+STEP 20: IDEMPOTENCY TESTING
+==================================================
 
-Where possible, verify rollback behavior, database compatibility, previous-version startup, and data safety.
+For operations that may be repeated, verify duplicate execution does not cause unintended effects.
 
-For systems with important persistent data, verify backups are created, readable, restorable, and produce valid restored data. A backup that has never been restored is not fully proven.
+Especially test:
 
-For critical systems, test disaster recovery scenarios such as server failure, database failure, region failure, storage failure, network failure, and accidental deletion.
+- Payment APIs
+- Webhooks
+- Queue consumers
+- Retryable APIs
+- Background jobs
+- File processing
+- Notifications
+- Create operations
 
-## Business Logic, Data Integrity, Manual Testing, Coverage, Mutation, and Review
+Verify repeated requests do not accidentally:
 
-Technical correctness is not enough. Verify actual business rules, calculations, ownership rules, workflow transitions, limits, validation rules, permission behavior, and state transitions.
+- create duplicates
+- charge twice
+- send multiple notifications
+- corrupt state
+- process the same event twice
 
-Verify no unintended duplicates, orphan records, invalid references, partial writes, inconsistent state, or silent data loss.
+==================================================
+STEP 21: ERROR-HANDLING TESTING
+==================================================
 
-After automated testing, manually use the software as a real user. Try rapid clicking, double-clicking, refreshing during operations, opening multiple tabs, browser back/forward, losing and restoring internet, submitting incomplete forms, repeating requests, leaving pages during processing, and closing/reopening the application.
+Intentionally force failures.
 
-Measure coverage where supported, but do not treat coverage percentage as proof of quality. Focus coverage on critical logic, security logic, business rules, permissions, error paths, and important integrations. Avoid meaningless tests written only to increase coverage.
+Examples:
 
-For critical business logic, consider mutation testing where practical to verify whether tests detect broken logic.
+- Database unavailable
+- Cache unavailable
+- Queue unavailable
+- Third-party API unavailable
+- DNS failure
+- Timeout
+- Connection reset
+- Invalid response
+- Partial response
+- Malformed response
+- Rate-limit response
+- Disk full
+- Storage unavailable
+- File corruption
 
-Review changed code for correctness, simplicity, maintainability, security, error handling, performance, naming, duplication, dead code, unnecessary complexity, resource handling, transaction behavior, and thread safety.
+Verify:
 
-## Git Diff Review
+- Application does not crash unnecessarily.
+- Errors are handled gracefully.
+- Useful error responses are returned.
+- Sensitive information is not exposed.
+- Retriable failures are retried safely.
+- Non-retriable failures are not endlessly retried.
 
-Before declaring completion, inspect the complete Git diff. Verify only intended files changed; no accidental deletions, secrets, temporary debug code, commented-out production code, unnecessary formatting changes, generated files accidentally committed, or unrelated refactoring are present.
+==================================================
+STEP 22: RETRY AND RESILIENCE TESTING
+==================================================
 
-## Required Testing Level by Change Type
+If the application has:
 
-- Small code change: build, compile, lint, unit tests, and relevant regression tests.
-- Backend feature: unit, integration, API, database, authorization, and regression tests.
-- Frontend feature: unit/component, integration, E2E, responsive, accessibility, and regression tests.
-- Authentication/security feature: unit, integration, authentication, authorization, security, penetration testing where appropriate, E2E, and regression tests.
-- Database change: integration, migration, transaction, data integrity, performance/query, and regression tests.
-- Microservices: unit, integration, contract, API, event/queue, resilience, and E2E tests.
-- Production release: full regression, E2E, security, penetration testing where required, performance, load, smoke, and deployment verification.
+- retries
+- circuit breakers
+- timeouts
+- fallback logic
+- bulkheads
 
-## AI-Generated Code Rules
+test each behavior.
+
+Verify:
+
+- Retry count
+- Backoff behavior
+- Retryable exception rules
+- Non-retryable exception rules
+- Circuit breaker opening
+- Circuit breaker recovery
+- Timeout behavior
+- Fallback behavior
+
+Prevent retry storms.
+
+==================================================
+STEP 23: PERFORMANCE TESTING
+==================================================
+
+Measure important performance characteristics.
+
+Test:
+
+- Response time
+- Throughput
+- CPU usage
+- Memory usage
+- Database latency
+- Cache behavior
+- File processing speed
+- Queue processing speed
+- Large dataset behavior
+
+Measure realistic workloads.
+
+Do not optimize blindly.
+
+Identify actual bottlenecks.
+
+==================================================
+STEP 24: LOAD TESTING
+==================================================
+
+Test expected traffic levels.
+
+Examples:
+
+- Normal traffic
+- Peak traffic
+- Multiple concurrent users
+- Large request volume
+- High API throughput
+
+Measure:
+
+- Response times
+- Error rate
+- Throughput
+- CPU
+- Memory
+- Database connections
+- Queue depth
+- Thread usage
+
+Use suitable tools such as:
+
+- k6
+- JMeter
+- Gatling
+- Locust
+- project-specific equivalents
+
+==================================================
+STEP 25: STRESS TESTING
+==================================================
+
+Push beyond normal expected load.
+
+Determine:
+
+- Breaking point
+- Failure behavior
+- Recovery behavior
+- Whether failures are graceful
+- Whether data remains consistent
+
+==================================================
+STEP 26: SOAK / ENDURANCE TESTING
+==================================================
+
+For long-running systems, test sustained workloads.
+
+Detect:
+
+- Memory leaks
+- Connection leaks
+- Thread leaks
+- Resource exhaustion
+- Slow degradation
+- Queue buildup
+- Cache growth problems
+
+==================================================
+STEP 27: MEMORY AND RESOURCE TESTING
+==================================================
+
+Check:
+
+- Memory leaks
+- File descriptor leaks
+- Connection pool leaks
+- Thread leaks
+- Unclosed streams
+- Unclosed database connections
+- Temporary file cleanup
+- Cache growth
+- Disk usage
+
+==================================================
+STEP 28: FILE UPLOAD/DOWNLOAD TESTING
+==================================================
+
+Where relevant test:
+
+- Valid file
+- Invalid extension
+- Incorrect MIME type
+- Empty file
+- Large file
+- Very large file
+- Corrupted file
+- Duplicate filename
+- Unicode filename
+- Special characters
+- Interrupted upload
+- Interrupted download
+- Unauthorized download
+- Path traversal attempts
+
+==================================================
+STEP 29: FRONTEND TESTING
+==================================================
+
+Test:
+
+- Rendering
+- Loading state
+- Success state
+- Empty state
+- Error state
+- Disabled state
+- Form validation
+- Buttons
+- Navigation
+- Routing
+- Search
+- Filtering
+- Pagination
+- Sorting
+- Modals
+- Dialogs
+- Dropdowns
+- Forms
+- Keyboard interaction
+
+Test API failure behavior.
+
+The UI must not silently fail.
+
+==================================================
+STEP 30: RESPONSIVE TESTING
+==================================================
+
+Where applicable test:
+
+- Desktop
+- Laptop
+- Tablet
+- Mobile
+- Different viewport sizes
+- Portrait
+- Landscape
+
+Verify layouts do not break.
+
+==================================================
+STEP 31: CROSS-BROWSER TESTING
+==================================================
+
+Where relevant test supported browsers such as:
+
+- Chrome
+- Edge
+- Firefox
+- Safari
+
+Focus on browsers supported by project requirements.
+
+==================================================
+STEP 32: ACCESSIBILITY TESTING
+==================================================
+
+Test relevant accessibility requirements.
+
+Check:
+
+- Keyboard navigation
+- Focus order
+- Visible focus
+- Labels
+- ARIA usage
+- Semantic HTML
+- Screen-reader compatibility
+- Form errors
+- Color contrast
+- Alternative text
+- Accessible buttons
+- Accessible dialogs
+
+Aim for applicable WCAG requirements.
+
+==================================================
+STEP 33: LOCALIZATION AND INTERNATIONALIZATION TESTING
+==================================================
+
+When applicable test:
+
+- Multiple languages
+- Unicode
+- Long translated text
+- Right-to-left languages
+- Date formats
+- Number formats
+- Currency formats
+- Timezones
+- Character encoding
+
+==================================================
+STEP 34: TIME AND TIMEZONE TESTING
+==================================================
+
+Where time matters, test:
+
+- UTC
+- Local timezone
+- Timezone conversion
+- DST
+- Date boundaries
+- Month boundaries
+- Year boundaries
+- Leap year
+- Expiration times
+- Scheduled tasks
+
+==================================================
+STEP 35: CACHE TESTING
+==================================================
+
+When caching exists test:
+
+- Cache hit
+- Cache miss
+- Cache expiration
+- Cache invalidation
+- Stale cache
+- Cache unavailable
+- Concurrent updates
+- Cache/database consistency
+
+==================================================
+STEP 36: MESSAGE QUEUE / EVENT TESTING
+==================================================
+
+When using queues or event systems test:
+
+- Successful publishing
+- Successful consumption
+- Duplicate event
+- Out-of-order event
+- Failed consumer
+- Consumer retry
+- Dead-letter queue
+- Poison message
+- Queue unavailable
+- Reconnection
+- At-least-once delivery behavior
+
+Verify idempotency.
+
+==================================================
+STEP 37: WEBHOOK TESTING
+==================================================
+
+When using webhooks test:
+
+- Valid webhook
+- Invalid signature
+- Missing signature
+- Duplicate webhook
+- Delayed webhook
+- Out-of-order webhook
+- Retry
+- Replay attack
+- Invalid payload
+- Unknown event type
+
+==================================================
+STEP 38: EXTERNAL API TESTING
+==================================================
+
+Test external integrations for:
+
+- Success
+- Authentication failure
+- Authorization failure
+- Timeout
+- Rate limiting
+- Invalid response
+- Partial response
+- Schema changes
+- Service unavailable
+- Network interruption
+
+Do not allow external failures to crash the application.
+
+==================================================
+STEP 39: LOGGING TESTING
+==================================================
+
+Verify logs contain enough information for debugging without exposing sensitive data.
+
+Never log:
+
+- passwords
+- access tokens
+- refresh tokens
+- API secrets
+- private keys
+- full credit card details
+- sensitive personal data
+
+Use appropriate log levels.
+
+==================================================
+STEP 40: OBSERVABILITY TESTING
+==================================================
+
+Where observability exists verify:
+
+- Logs
+- Metrics
+- Traces
+- Health checks
+- Readiness checks
+- Liveness checks
+- Alerting
+
+Ensure important failures can be detected.
+
+==================================================
+STEP 41: CONFIGURATION TESTING
+==================================================
+
+Verify configuration across environments:
+
+- local
+- development
+- testing
+- staging
+- production
+
+Check:
+
+- required environment variables
+- defaults
+- missing variables
+- invalid variables
+- secret handling
+- feature flags
+- URLs
+- ports
+- database configuration
+- CORS configuration
+
+==================================================
+STEP 42: DEPENDENCY TESTING
+==================================================
+
+Check:
+
+- Vulnerable dependencies
+- Outdated dependencies
+- Dependency conflicts
+- Unused dependencies
+- Unsupported libraries
+- License concerns where relevant
+
+Do not upgrade dependencies blindly.
+
+After dependency updates, run regression testing.
+
+==================================================
+STEP 43: STATIC SECURITY ANALYSIS
+==================================================
+
+Where tools are available perform:
+
+- SAST
+- secret scanning
+- dependency scanning
+- vulnerability scanning
+
+Examples may include:
+
+- GitHub Dependabot
+- CodeQL
+- SonarQube
+- Semgrep
+- Snyk
+- Trivy
+- OWASP Dependency-Check
+
+Use the tools suitable for the project.
+
+==================================================
+STEP 44: CONTAINER TESTING
+==================================================
+
+When using Docker or containers verify:
+
+- Image builds successfully.
+- Application starts.
+- Required files are included.
+- Secrets are not baked into the image.
+- Correct ports are exposed.
+- Health checks work.
+- Containers run as non-root when practical.
+- Base image vulnerabilities are reviewed.
+- Image size is reasonable.
+
+==================================================
+STEP 45: INFRASTRUCTURE TESTING
+==================================================
+
+When infrastructure is part of the project verify:
+
+- Environment configuration
+- Networking
+- Firewall/security groups
+- IAM permissions
+- Storage
+- Database connectivity
+- DNS
+- SSL/TLS
+- Load balancer
+- Health checks
+- Secrets
+- Backup configuration
+
+Follow least privilege.
+
+==================================================
+STEP 46: DEPLOYMENT TESTING
+==================================================
+
+Before deployment:
+
+- Run full build.
+- Run relevant automated tests.
+- Validate configuration.
+- Validate migrations.
+- Check secrets.
+- Verify deployment scripts.
+
+After deployment:
+
+- Run smoke tests.
+- Check health.
+- Check logs.
+- Check metrics.
+- Test important endpoints.
+- Test critical user flows.
+
+==================================================
+STEP 47: ROLLBACK TESTING
+==================================================
+
+Where possible verify:
+
+- Application can roll back.
+- Database compatibility is considered.
+- Previous version can start.
+- Rollback does not corrupt data.
+
+==================================================
+STEP 48: BACKUP AND RESTORE TESTING
+==================================================
+
+For systems with important persistent data:
+
+- Verify backups are created.
+- Verify backups are readable.
+- Test restore process.
+- Verify restored data.
+- Check recovery time expectations.
+
+A backup that has never been restored is not fully proven.
+
+==================================================
+STEP 49: DISASTER RECOVERY TESTING
+==================================================
+
+For critical systems, test recovery scenarios such as:
+
+- Server failure
+- Database failure
+- Region failure
+- Storage failure
+- Network failure
+- Accidental deletion
+
+==================================================
+STEP 50: BUSINESS-LOGIC TESTING
+==================================================
+
+Technical correctness is not enough.
+
+Verify actual business rules.
+
+Examples:
+
+- Correct calculations
+- Correct ownership rules
+- Correct workflow transitions
+- Correct limits
+- Correct validation rules
+- Correct permission behavior
+- Correct state transitions
+
+==================================================
+STEP 51: DATA INTEGRITY TESTING
+==================================================
+
+Verify:
+
+- No unintended duplicate data
+- No orphan records
+- No invalid references
+- No partial writes
+- No inconsistent state
+- No silent data loss
+
+==================================================
+STEP 52: MANUAL EXPLORATORY TESTING
+==================================================
+
+After automated testing, manually use the software as a real user.
+
+Try unusual behavior such as:
+
+- Rapid clicking
+- Double clicking
+- Refreshing during operations
+- Opening multiple tabs
+- Browser back/forward
+- Losing internet
+- Reconnecting internet
+- Submitting incomplete forms
+- Repeating requests
+- Leaving pages during processing
+- Closing/reopening the application
+
+Look for issues automated tests may miss.
+
+==================================================
+STEP 53: TEST COVERAGE
+==================================================
+
+Measure test coverage where supported.
+
+Do not treat coverage percentage as proof of quality.
+
+Focus coverage on:
+
+- Critical logic
+- Security logic
+- Business rules
+- Permissions
+- Error paths
+- Important integrations
+
+Avoid meaningless tests written only to increase coverage numbers.
+
+==================================================
+STEP 54: MUTATION TESTING
+==================================================
+
+For critical business logic, consider mutation testing where practical.
+
+The purpose is to verify whether tests can actually detect broken logic.
+
+==================================================
+STEP 55: CODE REVIEW
+==================================================
+
+Review changed code for:
+
+- Correctness
+- Simplicity
+- Maintainability
+- Security
+- Error handling
+- Performance
+- Naming
+- Duplication
+- Dead code
+- Unnecessary complexity
+- Resource handling
+- Transaction behavior
+- Thread safety
+
+==================================================
+STEP 56: GIT DIFF REVIEW
+==================================================
+
+Before declaring completion, inspect the complete Git diff.
+
+Verify:
+
+- Only intended files changed.
+- No accidental deletions.
+- No secrets committed.
+- No temporary debugging code.
+- No commented-out production code.
+- No unnecessary formatting changes.
+- No generated files accidentally committed.
+- No unrelated refactoring.
+
+==================================================
+REQUIRED TESTING LEVEL BY CHANGE TYPE
+==================================================
+
+For a small code change:
+
+- Build
+- Compile
+- Lint
+- Unit tests
+- Relevant regression tests
+
+For a backend feature:
+
+- Unit tests
+- Integration tests
+- API tests
+- Database tests
+- Authorization tests
+- Regression tests
+
+For a frontend feature:
+
+- Unit/component tests
+- Integration tests
+- E2E tests
+- Responsive tests
+- Accessibility checks
+- Regression tests
+
+For an authentication/security feature:
+
+- Unit tests
+- Integration tests
+- Authentication tests
+- Authorization tests
+- Security tests
+- Penetration testing where appropriate
+- E2E tests
+- Regression tests
+
+For a database change:
+
+- Integration tests
+- Migration tests
+- Transaction tests
+- Data integrity tests
+- Performance/query testing
+- Regression tests
+
+For microservices:
+
+- Unit tests
+- Integration tests
+- Contract tests
+- API tests
+- Event/queue tests
+- Resilience tests
+- E2E tests
+
+For production release:
+
+- Full regression testing
+- E2E testing
+- Security testing
+- Penetration testing where required
+- Performance testing
+- Load testing
+- Smoke testing
+- Deployment verification
+
+==================================================
+MANDATORY TESTING CATEGORIES
+==================================================
+
+At minimum, evaluate whether the project requires:
+
+- Unit Testing
+- Integration Testing
+- API Testing
+- Contract Testing
+- End-to-End Testing
+- Regression Testing
+- Smoke Testing
+- Sanity Testing
+- Negative Testing
+- Edge Case Testing
+- Authentication Testing
+- Authorization Testing
+- Security Testing
+- Penetration Testing
+- Database Testing
+- Migration Testing
+- Concurrency Testing
+- Idempotency Testing
+- Error Handling Testing
+- Resilience Testing
+- Performance Testing
+- Load Testing
+- Stress Testing
+- Soak Testing
+- Resource Testing
+- Frontend Testing
+- Responsive Testing
+- Cross-Browser Testing
+- Accessibility Testing
+- Localization Testing
+- Cache Testing
+- Queue/Event Testing
+- Webhook Testing
+- External API Testing
+- Configuration Testing
+- Dependency Testing
+- Container Testing
+- Deployment Testing
+- Rollback Testing
+- Backup/Restore Testing
+- Business Logic Testing
+- Data Integrity Testing
+- Manual Exploratory Testing
+
+Do not blindly run irrelevant tests.
+
+Determine which categories are applicable to the current project and explain why.
+
+==================================================
+RECOMMENDED EXECUTION ORDER
+==================================================
+
+Use this flow where applicable:
+
+Requirements
+↓
+Code Review
+↓
+Compile / Build
+↓
+Lint / Static Analysis
+↓
+Unit Tests
+↓
+Integration Tests
+↓
+Database Tests
+↓
+API Tests
+↓
+Authentication / Authorization Tests
+↓
+Security Tests
+↓
+Regression Tests
+↓
+Frontend / Component Tests
+↓
+E2E Tests
+↓
+Performance / Concurrency Tests
+↓
+Manual Exploratory Testing
+↓
+Git Diff Review
+↓
+Deployment
+↓
+Smoke Testing
+↓
+Final Validation
+
+==================================================
+BUG-FIX RULE
+==================================================
+
+For every reproducible bug:
+
+Bug reported
+↓
+Reproduce bug
+↓
+Understand root cause
+↓
+Create failing regression test
+↓
+Fix root cause
+↓
+Run test
+↓
+Run related test suite
+↓
+Verify no regression
+↓
+Keep regression test permanently
+
+Avoid temporary patches that hide the actual problem.
+
+==================================================
+AI / VIBE CODING SPECIFIC RULES
+==================================================
 
 When code is generated or modified using AI:
 
-- Assume it may contain subtle mistakes.
-- Verify important APIs, methods, configuration, library calls, and framework behavior against the actual dependency versions.
-- Do not accept invented methods, classes, configuration keys, annotations, or CLI commands.
-- Check imports, dependencies, error handling, thread safety, database behavior, authentication, authorization, performance implications, generated SQL, external API assumptions, project architecture, conventions, and unnecessary complexity.
-- Do not rewrite working modules unnecessarily.
-- Run tests after every meaningful AI-generated change.
+1. Assume it may contain subtle mistakes.
 
-## Checkpoint Rule
+2. Verify every important API, method, configuration, library call, and framework behavior.
 
-Before each meaningful Git checkpoint or commit, the build, relevant tests, regression tests, and lint/static checks must pass where configured; the Git diff must be reviewed; no secrets or temporary debug code may remain. Do not recommend committing broken code unless explicitly creating a temporary work-in-progress commit.
+3. Check that generated code uses APIs supported by the project's actual dependency versions.
 
-## Definition of Done
+4. Do not accept invented methods, classes, configuration keys, annotations, or CLI commands.
 
-A task is complete only when all relevant conditions are satisfied: requirements are implemented, the application builds, no known compile errors exist, relevant tests pass, critical flows pass E2E testing where applicable, authentication and authorization work correctly, security checks pass to an acceptable level, database behavior is correct, edge cases and failure scenarios are handled, performance is acceptable for expected usage, existing functionality has not regressed, sensitive information is not exposed, the Git diff has been reviewed, no known critical bug is hidden, and remaining risks are documented.
+5. Check imports and dependencies.
 
-## Final Test Report
+6. Check error handling.
 
-After testing, provide this structured report. Mark each testing category as `PASS`, `FAIL`, `PARTIAL`, `NOT APPLICABLE`, or `NOT TESTED`.
+7. Check thread safety.
 
-```markdown
+8. Check database behavior.
+
+9. Check authentication and authorization.
+
+10. Check performance implications.
+
+11. Check generated SQL when relevant.
+
+12. Check external API assumptions.
+
+13. Check generated code against project architecture and conventions.
+
+14. Do not accept unnecessary complexity.
+
+15. Do not rewrite working modules unnecessarily.
+
+16. Run tests after every meaningful AI-generated change.
+
+==================================================
+CHECKPOINT RULE
+==================================================
+
+Before each meaningful Git checkpoint or commit:
+
+- Build must pass.
+- Relevant tests must pass.
+- Regression tests must pass.
+- Lint/static checks must pass where configured.
+- Git diff must be reviewed.
+- No secrets must be present.
+- No temporary debug code must remain.
+
+Do not recommend committing broken code unless explicitly creating a temporary work-in-progress commit.
+
+==================================================
+DEFINITION OF DONE
+==================================================
+
+A task is complete only when all relevant conditions are satisfied:
+
+- Requirements are implemented.
+- Application builds successfully.
+- No known compile errors exist.
+- Relevant unit tests pass.
+- Relevant integration tests pass.
+- Relevant API tests pass.
+- Relevant regression tests pass.
+- Important user flows pass E2E testing.
+- Authentication works correctly.
+- Authorization works correctly.
+- Security checks pass to an acceptable level.
+- Database behavior is correct.
+- Edge cases are handled.
+- Failure scenarios are handled.
+- Performance is acceptable for expected usage.
+- Existing functionality has not regressed.
+- No sensitive information is exposed.
+- Git diff has been reviewed.
+- No known critical bug is being hidden.
+- Remaining risks are documented.
+
+==================================================
+FINAL TEST REPORT
+==================================================
+
+After testing, provide a structured final report.
+
+Use this format:
+
 # Testing Summary
 
 ## Build Status
@@ -290,6 +1681,14 @@ After testing, provide this structured report. Mark each testing category as `PA
 - Smoke Testing:
 - Manual Testing:
 
+Mark each as:
+
+- PASS
+- FAIL
+- PARTIAL
+- NOT APPLICABLE
+- NOT TESTED
+
 ## Tests Added
 List new automated tests.
 
@@ -303,7 +1702,7 @@ List successful checks.
 List failed tests and exact reasons.
 
 ## Bugs Found
-For each bug include:
+For each bug provide:
 - Problem
 - Root cause
 - Severity
@@ -311,7 +1710,7 @@ For each bug include:
 - Test added
 
 ## Security Findings
-For each finding include:
+Include:
 - Vulnerability
 - Severity
 - Impact
@@ -319,7 +1718,7 @@ For each finding include:
 - Verification status
 
 ## Performance Findings
-For each finding include:
+Include:
 - Scenario
 - Result
 - Bottleneck
@@ -335,6 +1734,7 @@ Clearly list anything that could not be tested.
 List known risks.
 
 ## Production Readiness
+
 Give one final status:
 
 READY
@@ -346,6 +1746,27 @@ NOT READY
 BLOCKED
 
 Explain the reason.
-```
 
-Do not finish with only "Tests passed." Provide evidence. A successful build, unit testing alone, manual testing alone, E2E testing alone, or security scanning alone is not enough. Always test actual behavior, protect existing functionality, verify security boundaries, test failure scenarios, and clearly report what was and was not validated.
+==================================================
+FINAL RULE
+==================================================
+
+Do not finish with only:
+
+"Tests passed."
+
+Provide evidence.
+
+A successful build is not enough.
+
+Unit testing alone is not enough.
+
+Manual testing alone is not enough.
+
+E2E testing alone is not enough.
+
+Security scanning alone is not enough.
+
+A production-ready application requires multiple layers of verification.
+
+Always test the actual behavior, protect existing functionality, verify security boundaries, test failure scenarios, and clearly report what was and was not validated.
