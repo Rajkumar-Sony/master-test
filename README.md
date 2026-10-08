@@ -7,7 +7,7 @@ A Codex and Cursor skill containing the full `master-test` premium testing promp
 Clone the private repository, then run the installer:
 
 ```bash
-gh repo clone Rajkumar-Sony/master-test
+[gh repo clone Rajkumar-Sony/master-test](https://github.com/Rajkumar-Sony/master-test.git)
 cd master-test
 ./install.sh --target all
 ```
